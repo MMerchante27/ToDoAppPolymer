@@ -138,32 +138,32 @@
 		}
     },
     handleComplete: function(e){
-	    var idx = findWithAttr(this.todo, 'rid', e.target.rid);
-	    var itm = this.todo[idx];
-	    itm.task = e.target.task;
-	    itm.user = this.$.tUser.value;
-	    itm.type = "done";
-	    this.$.pub.message = itm;
+	    var index = findWithAttr(this.todo, 'rid', e.target.rid);
+	    var item = this.todo[index];
+	    item.task = e.target.task;
+	    item.user = this.$.tUser.value;
+	    item.type = "done";
+	    this.$.pub.message = item;
 	    this.$.pub.publish();
     },
     handleEdit: function(e){
-	    var idx = findWithAttr(this.todo, 'rid', e.target.rid);
-	    var itm = this.todo[idx];
-	    itm.task = e.target.task;
-	    itm.user = this.$.tUser.value;
-	    itm.type = "edit";
-	    this.$.pub.message = itm;
+	    var index = findWithAttr(this.todo, 'rid', e.target.rid);
+	    var item = this.todo[index];
+	    item.task = e.target.task;
+	    item.user = this.$.tUser.value;
+	    item.type = "edit";
+	    this.$.pub.message = item;
 	    this.$.pub.publish();
     },
     postTask: function(e) {
-	    var tsk = this.$.tTask.value;
+	    var task = this.$.tTask.value;
 	    var usr = this.$.tUser.value;
-	    if (tsk==""){
+	    if (task==""){
 		    alert("Task is Empty!");
 		    return;
 		}
 	    if (usr==""){ usr = randItem(names1) + "-" + randItem(names2); }
-	    this.$.pub.message = {type:"todo", task:tsk, user:usr, rid:randID()};
+	    this.$.pub.message = {type:"todo", task:task, user:usr, rid:randID()};
 	    this.$.pub.publish();
 	    this.$.tTask.value = "";
     },
@@ -176,7 +176,6 @@
 			    	break;
 			    case "done":
 			    	var idx = findWithAttr(this.todo, 'rid',item.rid);
-				    
 				    if (idx == -1){return;}
 				    var itm = this.splice('todo', idx, 1)[0];
 				    itm.task = item.task;
@@ -200,11 +199,6 @@
 		this.addEventListener('complete', this.handleComplete);
 		this.addEventListener('edit', this.handleEdit);
 		this.$.tUser.value = randItem(names1) + "-" + randItem(names2);
-		this.addEventListener('presence', presChange);
-		function presChange(e){
-			var pres = this.present.pop()
-			this.$.here.innerHTML = pres.occupancy;
-		}
 		var todos = this.$.todos;
 		window.onresize = function(event) {
 			todos.style.height = window.innerHeight-200;

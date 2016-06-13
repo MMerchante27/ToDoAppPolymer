@@ -93,11 +93,11 @@
     	}
     },
     compChanged: function(e){
-    	console.log("entro");
-	    if(e){ this.fire('complete',this); }
+	    if(e){ 
+	    	this.fire('complete',this); 
+	    }
     },
     doEdit: function(e){
-    	console.log("do edit")
     	this.editing=!this.editing;
     	if (!this.editing){ this.fire('edit', {rid:this.rid, task:this.task}); }
 	},
